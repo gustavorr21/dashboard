@@ -24,6 +24,7 @@
     "angular-material-sidenav": "^0.1.1",
     "highcharts": "^9.3.3",
     "highcharts-angular": "^3.0.0",
+    "ng2-charts": "^3.0.8",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

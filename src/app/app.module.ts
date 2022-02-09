@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DefaultComponent } from './layouts/default/default.component';
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { DefaultModule } from './layouts/default/default.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { DefaultModule } from './layouts/default/default.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     DefaultModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
