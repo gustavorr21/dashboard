@@ -1,57 +1,48 @@
 import { Component, OnInit } from '@angular/core';
 import * as Highcharts from 'highcharts';
 import HC_exporting from 'highcharts/modules/exporting';
-
+import { of } from 'rxjs';
+import { ClienteService } from 'src/app/services/cliente.service';
+import {
+  concatMap,
+  delay
+} from 'rxjs/operators';
 @Component({
   selector: 'app-wigdget-area',
   templateUrl: './area.component.html',
   styleUrls: ['./area.component.scss']
 })
 export class AreaComponent implements OnInit {
-  chartOptions: {} = {};
-
-  Highcharts = Highcharts;
-  constructor() { }
+  Highcharts: typeof Highcharts = Highcharts;
+  chartOptions: any;
+  constructor(private clienteService: ClienteService,) { }
 
   ngOnInit(){
-    this.chartOptions = {
-    chart: {
-        type: 'area'
-    },
-    title: {
-        text: 'Historic and Estimated Worldwide Population Growth by Region'
-    },
-    subtitle: {
-        text: 'Source: Wikipedia.org'
-    },
-    tooltip: {
-        split: true,
-        valueSuffix: ' millions'
-    },
-    credits: {
-      enabled: false
-    },
-    exporting: {
-      enabled: true
-    },
-    series: [{
-        name: 'Asia',
-        data: [502, 635, 809, 947, 1402, 3634, 6000,7000]
-    }, {
-        name: 'Africa',
-        data: [106, 107, 111, 133, 221, 767, 1766,2000]
-    }, {
-        name: 'Europe',
-        data: [163, 203, 276, 408, 547, 729, 628,1000]
-    }, {
-        name: 'America',
-        data: [18, 31, 54, 156, 339, 818, 1201,1850]
-    }, {
-        name: 'Oceania',
-        data: [2, 2, 2, 6, 13, 30, 46,80]
-    }]
-  }
 
+  this.clienteService.getListClient().pipe(
+    concatMap(item => of (item).pipe(delay(100)))
+    ).subscribe(dataReturn => {
+    var aaaa = this.getValues(dataReturn);
+    this.chartOptions = {
+      series: aaaa,
+      title: {
+        text: 'comparativo',
+      },
+      subtitle: {
+        text: 'area',
+      },
+      chart: {},
+      xAxis: [
+        {
+          categories: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dec',],
+          crosshair: true,
+        },
+      ],
+      tooltip: {
+        shared: true,
+      },
+    };
+  })
   HC_exporting(Highcharts);
 
   setTimeout(() => {
@@ -59,6 +50,17 @@ export class AreaComponent implements OnInit {
       new Event('resize')
     );
   }, 300);
+  }
+
+  getValues(dataReturn:any){
+    var retornaDados: { name: any; data: any; }[] = [];
+    (dataReturn as any).forEach((element: any) => {
+      var y: number = +element.email;
+      var x: number = +element.senha;
+      var z: number = +element.telefone;
+      retornaDados.push({name:element.nome, data:[y,x,z]});
+    });
+    return retornaDados;
   }
 
 }

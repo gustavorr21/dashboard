@@ -3,80 +3,70 @@ import { DashboardService } from '../dashboard.service';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
+import { ClienteService } from 'src/app/services/cliente.service';
+import { concatMap, delay } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 export interface UserData {
   id: string;
-  name: string;
-  progress: string;
-  fruit: string;
+  nome: string;
+  email: string;
+  telefone: string;
 }
-
-const FRUITS: string[] = [
-  'blueberry',
-  'lychee',
-  'kiwi',
-  'mango',
-  'peach',
-  'lime',
-  'pomegranate',
-  'pineapple',
-];
-
-const NAMES: string[] = [
-  'Maia',
-  'Asher',
-  'Olivia',
-  'Atticus',
-  'Amelia',
-  'Jack',
-  'Charlotte',
-  'Theodore',
-  'Isla',
-  'Oliver',
-  'Isabella',
-  'Jasper',
-  'Cora',
-  'Levi',
-  'Violet',
-  'Arthur',
-  'Mia',
-  'Thomas',
-  'Elizabeth',
-];
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'name', 'progress', 'fruit'];
+  displayedColumns: string[] = ['id', 'nome', 'email', 'telefone'];
   dataSource: MatTableDataSource<UserData> | any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator | any;
   @ViewChild(MatSort) sort: MatSort | any;
 
-  bigChart = [] as any;
   cards = [] as any;
   pieChart = [] as any;
+  chartOptions: any;
+  constructor(private dashboardService: DashboardService,
+              private clienteService: ClienteService) {
 
-  constructor(private dashboardService: DashboardService) {
-    const users = Array.from({length: 100}, (_, k) => createNewUser(k + 1));
-
-    // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(users);
    }
 
   ngOnInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    // this.clienteService.getListClient().subscribe(x=>{
 
-    this.bigChart = this.dashboardService.bigChart();
-    this.cards = this.dashboardService.cards();
-    this.pieChart = this.dashboardService.pieChart();
-  }
+    //   this.dataSource = new MatTableDataSource(x as []);
+    //   this.dataSource.paginator = this.paginator;
+
+    // });
+
+
+  this.clienteService.getListClient().pipe(
+    concatMap(item => of (item).pipe(delay(1000)))
+    ).subscribe(dataReturn => {
+    // var aaaa = this.getValues(dataReturn);
+    this.dataSource = new MatTableDataSource(dataReturn as []);
+    this.dataSource.paginator = this.paginator;
+    this.pieChart = this.dashboardService.pieChart(dataReturn);
+    this.chartOptions = {};
+  })
+
+}
+  //  getValues(dataReturn:any){
+  //   var retornaDados: { name: any; data: any; }[] = [];
+  //   (dataReturn as any).forEach((element: any) => {
+  //     var y: number = +element.email;
+  //     var x: number = +element.senha;
+  //     var z: number = +element.telefone;
+  //     retornaDados.push({name:element.nome, data:[y,x,z]});
+  //   });
+  //   return retornaDados;
+  // }
+
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator
- }
+
+  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -86,18 +76,4 @@ export class DashboardComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-}
-function createNewUser(id: number): UserData {
-  const name =
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))] +
-    ' ' +
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) +
-    '.';
-
-  return {
-    id: id.toString(),
-    name: name,
-    progress: Math.round(Math.random() * 100).toString(),
-    fruit: FRUITS[Math.round(Math.random() * (FRUITS.length - 1))],
-  };
 }
