@@ -10,6 +10,10 @@ namespace BDTeste
   public class AplicationDBContext : DbContext
   {
     public DbSet<Cliente> Clientes { get; set; }
+    public DbSet<Funcionario> Funcionario { get; set; }
+    public DbSet<Produto> Produto { get; set; }
+    public DbSet<Venda> Venda { get; set; }
+
 
     public AplicationDBContext(DbContextOptions<AplicationDBContext> options): base(options)
     {
