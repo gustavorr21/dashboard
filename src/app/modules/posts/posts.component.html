@@ -1,1 +1,75 @@
-<p>posts works!</p>
+
+
+<form class="container" [formGroup]="form" (submit)="onSubmit()">
+  <div class="row flex-row" >
+    <mat-card class="col-11">
+      <mat-card-content>
+        <!-- <input class="menu-btn" type="checkbox" id="menu-btn" /> -->
+
+        <div class="d-flex flex-wrap row">
+          <mat-form-field  appearance="fill">
+            <mat-label>Codigo Produto</mat-label>
+            <input matInput formControlName="codigoProduto" placeholder="Ex: 123" >
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" style="width: 500px;">
+            <mat-label>Nome Produto</mat-label>
+            <input matInput formControlName="nomeProduto" placeholder="Nutella">
+          </mat-form-field>
+        </div>
+
+        <div class="d-flex flex-wrap row">
+          <mat-form-field appearance="fill">
+            <mat-label>Quantidade</mat-label>
+            <input matInput formControlName="quantidade" placeholder="1" (change)="updateValorTotal()">
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Valor Produto</mat-label>
+            <input matInput formControlName="valorProduto" placeholder="1" currencyMask (ngModelChange)="updateValorTotal()">
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Data Compra</mat-label>
+             <input matInput
+            [matDatepicker]="dataCompra"
+            formControlName="dataCompra"
+            dateMask />
+
+              <mat-datepicker-toggle matSuffix
+                                      [for]="dataCompra"></mat-datepicker-toggle>
+              <mat-datepicker #dataCompra></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Valor Total  <mat-icon> attach_money</mat-icon></mat-label>
+            <input matInput formControlName="valorTotal"  currencyMask>
+          </mat-form-field>
+        </div>
+
+        <mat-divider></mat-divider>
+        <div class="example-button-row">
+          <button mat-button color="primary">Gravar Produto</button>
+        </div>
+
+
+        <div class="d-flex flex-wrap row">
+          <!-- <mat-form-field class="flex-fill col-12 col-md-6">
+            <mat-label>Logradouro</mat-label>
+            <input matInput formControlName="nome" uppercase />
+          </mat-form-field>
+          <mat-form-field class="flex-fill col-12 col-md-2">
+            <mat-label>Número <mat-label >
+            <input matInput uppercase formControlName="nome" />
+          </mat-form-field>
+          <mat-form-field class="flex-fill col-12 col-md-4">
+            <mat-label>Complemento</mat-label>
+            <input matInput uppercase formControlName="nome" />
+          </mat-form-field> -->
+        </div>
+        <!-- </default-card>  -->
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+</form>

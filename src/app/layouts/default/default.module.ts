@@ -15,7 +15,30 @@ import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSortModule } from '@angular/material/sort';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
+import {MatButtonModule} from '@angular/material/button';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { NgxMaskModule } from 'ngx-mask';
+import { NgxCurrencyModule } from 'ngx-currency';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+export const customCurrencyMaskConfig = {
+  align: "left",
+  allowNegative: true,
+  allowZero: true,
+  decimal: ",",
+  precision: 2,
+  prefix: "R$ ",
+  suffix: "",
+  thousands: ".",
+  nullable: true,
+  min: undefined,
+  max: undefined
+};
 @NgModule({
   declarations: [
     DefaultComponent,
@@ -35,9 +58,24 @@ import { MatSortModule } from '@angular/material/sort';
     MatFormFieldModule,
     MatInputModule,
     MatSortModule,
-     ],
+    ReactiveFormsModule,
+    MatIconModule,
+    MatNativeDateModule,
+    MatBottomSheetModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    NgxMaskModule.forRoot(),
+    BrowserAnimationsModule,
+    NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
+    FormsModule,
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    ToastrModule.forRoot()
+   ],
   providers: [
-    DashboardService
+    DashboardService,
+    { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' }
+
   ],
 })
 export class DefaultModule { }

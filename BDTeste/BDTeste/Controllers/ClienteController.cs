@@ -1,3 +1,4 @@
+using BDTeste.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -43,8 +44,18 @@ namespace BDTeste.Controllers
 
     // POST api/<ManutencaoController>
     [HttpPost]
-    public void Post([FromBody] string value)
+    public async Task<ActionResult> Post([FromBody] Produto produto)
     {
+      try
+      {
+        _context.Add(produto);
+        await _context.SaveChangesAsync();
+        return Ok(produto);
+      }
+      catch (Exception ex)
+      {
+        return BadRequest(ex.Message);
+      }
     }
 
     // PUT api/<ManutencaoController>/5

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,5 +13,9 @@ export class ClienteService {
 
   getListClient(){
     return this.http.get(this.myAppUrl);
+  }
+
+  saveCreateProduto(produto: any):Observable<any> {
+    return this.http.post(this.myAppUrl, produto);
   }
 }

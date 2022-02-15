@@ -34,14 +34,6 @@ export class DashboardComponent implements OnInit {
    }
 
   ngOnInit() {
-    // this.clienteService.getListClient().subscribe(x=>{
-
-    //   this.dataSource = new MatTableDataSource(x as []);
-    //   this.dataSource.paginator = this.paginator;
-
-    // });
-
-
   this.clienteService.getListClient().pipe(
     concatMap(item => of (item).pipe(delay(1000)))
     ).subscribe(dataReturn => {
@@ -53,17 +45,6 @@ export class DashboardComponent implements OnInit {
   })
 
 }
-  //  getValues(dataReturn:any){
-  //   var retornaDados: { name: any; data: any; }[] = [];
-  //   (dataReturn as any).forEach((element: any) => {
-  //     var y: number = +element.email;
-  //     var x: number = +element.senha;
-  //     var z: number = +element.telefone;
-  //     retornaDados.push({name:element.nome, data:[y,x,z]});
-  //   });
-  //   return retornaDados;
-  // }
-
   ngAfterViewInit() {
 
   }
