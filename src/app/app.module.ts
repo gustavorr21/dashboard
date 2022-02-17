@@ -9,6 +9,7 @@ import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { DefaultModule } from './layouts/default/default.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
+import { VendasComponent } from './modules/lista-venda/vendas/vendas.component';
 
 @NgModule({
   declarations: [

@@ -26,6 +26,9 @@ import { NgxCurrencyModule } from 'ngx-currency';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ListaProdutoComponent } from 'src/app/modules/listaProduto/lista-produto/lista-produto.component';
+import { ListaVendaComponent } from 'src/app/modules/lista-venda/lista-venda/lista-venda.component';
+import { VendasComponent } from 'src/app/modules/lista-venda/vendas/vendas.component';
 export const customCurrencyMaskConfig = {
   align: "left",
   allowNegative: true,
@@ -43,7 +46,10 @@ export const customCurrencyMaskConfig = {
   declarations: [
     DefaultComponent,
     DashboardComponent,
-    PostsComponent
+    PostsComponent,
+    ListaProdutoComponent,
+    ListaVendaComponent,
+    VendasComponent,
   ],
   imports: [
     CommonModule,

@@ -18,13 +18,13 @@ namespace BDTeste.Models
     public string nomeProduto { get; set; }
 
     [Required]
-    public string valorProduto { get; set; }
+    public double valorProduto { get; set; }
 
     public DateTime dataVenda { get; set; }
 
     public string quantidade { get; set; }
 
-    public string valorTotal { get; set; }
+    public double valorTotal { get; set; }
 
     public int idFuncionario{ get; set; }
     public virtual Funcionario Funcionario { get; set; }

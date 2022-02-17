@@ -9,7 +9,7 @@
         <div class="d-flex flex-wrap row">
           <mat-form-field  appearance="fill">
             <mat-label>Codigo Produto</mat-label>
-            <input matInput formControlName="codigoProduto" placeholder="Ex: 123" >
+            <input matInput formControlName="codigoProduto" placeholder="Ex: 123" (change)="getProduto($event.target)" >
           </mat-form-field>
 
           <mat-form-field appearance="fill" style="width: 500px;">
@@ -30,15 +30,15 @@
           </mat-form-field>
 
           <mat-form-field appearance="fill">
-            <mat-label>Data Compra</mat-label>
+            <mat-label>Data Venda</mat-label>
              <input matInput
-            [matDatepicker]="dataCompra"
-            formControlName="dataCompra"
+            [matDatepicker]="dataVenda"
+            formControlName="dataVenda"
             dateMask />
 
               <mat-datepicker-toggle matSuffix
-                                      [for]="dataCompra"></mat-datepicker-toggle>
-              <mat-datepicker #dataCompra></mat-datepicker>
+                                      [for]="dataVenda"></mat-datepicker-toggle>
+              <mat-datepicker #dataVenda></mat-datepicker>
           </mat-form-field>
 
           <mat-form-field appearance="fill">
@@ -49,7 +49,7 @@
 
         <mat-divider></mat-divider>
         <div class="example-button-row">
-          <button mat-button color="primary">Gravar Produto</button>
+          <button mat-button color="primary">Gravar Venda</button>
         </div>
 
         <div class="example-button-row">

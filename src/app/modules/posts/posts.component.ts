@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ClienteService } from 'src/app/services/cliente.service';
+import { ProdutoService } from 'src/app/services/produto.service';
 
 @Component({
   selector: 'app-posts',
@@ -11,7 +12,7 @@ import { ClienteService } from 'src/app/services/cliente.service';
 })
 export class PostsComponent implements OnInit {
   form: FormGroup | any;
-  constructor(private formBuilder: FormBuilder,private clienteService: ClienteService, private toastr: ToastrService,private router: Router) {
+  constructor(private formBuilder: FormBuilder,private produtoService: ProdutoService, private toastr: ToastrService,private router: Router) {
     this.form = this.formBuilder.group({
       codigoProduto: [null, Validators.required],
       nomeProduto: [null, Validators.required],
@@ -32,7 +33,7 @@ export class PostsComponent implements OnInit {
       return;
     }
 
-    this.clienteService.saveCreateProduto(this.form.value).pipe().subscribe(dataReturn => {
+    this.produtoService.saveCreateProduto(this.form.value).pipe().subscribe(dataReturn => {
       this.router.navigate(['/']);
       this.toastr.success('Produto cadastrado com sucesso', 'Sucesso');
     })
