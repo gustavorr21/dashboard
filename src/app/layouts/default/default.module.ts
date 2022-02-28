@@ -30,6 +30,8 @@ import { ListaProdutoComponent } from 'src/app/modules/listaProduto/lista-produt
 import { ListaVendaComponent } from 'src/app/modules/lista-venda/lista-venda/lista-venda.component';
 import { VendasComponent } from 'src/app/modules/lista-venda/vendas/vendas.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { RelatorioVendasComponent } from 'src/app/modules/lista-venda/relatorio-vendas/relatorio-vendas.component';
+
 export const customCurrencyMaskConfig = {
   align: "left",
   allowNegative: true,

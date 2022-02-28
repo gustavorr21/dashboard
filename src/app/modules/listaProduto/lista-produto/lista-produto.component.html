@@ -26,15 +26,15 @@
         </ng-container>
 
         <!-- Name Column -->
-        <ng-container matColumnDef="email">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Email </th>
+        <ng-container matColumnDef="quantidade">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>quantidade </th>
           <td mat-cell *matCellDef="let row"> {{row.quantidade}} </td>
         </ng-container>
 
         <!-- Fruit Column -->
-        <ng-container matColumnDef="telefone">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Telefone </th>
-          <td mat-cell *matCellDef="let row"> {{row.dataCompra}} </td>
+        <ng-container matColumnDef="valorProduto">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Valor do Produto </th>
+          <td mat-cell *matCellDef="let row"> {{row.valorProduto}} </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

@@ -16,6 +16,7 @@ import { AreaComponent } from './widgets/area/area.component';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { CardComponent } from './widgets/card/card.component';
 import { PieComponent } from './widgets/pie/pie.component';
+import { RelatorioVendasComponent } from '../modules/lista-venda/relatorio-vendas/relatorio-vendas.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { PieComponent } from './widgets/pie/pie.component';
     AreaComponent,
     CardComponent,
     PieComponent,
+    RelatorioVendasComponent
   ],
   imports: [
     CommonModule,

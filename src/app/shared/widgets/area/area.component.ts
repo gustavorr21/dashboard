@@ -24,21 +24,26 @@ export class AreaComponent implements OnInit {
     concatMap(item => of (item).pipe(delay(100)))
     ).subscribe(dataReturn => {
     var aaaa = this.getValues(dataReturn);
-    var vv = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dec',];
-    var bbbb = this.getValuesMes(dataReturn);
-
+    var mes = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dec'];
     this.chartOptions = {
-      series: aaaa,
+      series: [{
+        name: 'Total de Vendas',
+        data: this.totalizaClientes(dataReturn)
+     },
+     {name: 'Total em Money',
+      data: this.getValues(dataReturn)}
+      ],
       title: {
         text: 'comparativo',
       },
+
       subtitle: {
         text: 'area',
       },
       chart: {},
       xAxis: [
         {
-          categories: vv,
+          categories: mes,
           crosshair: true,
         },
       ],
@@ -57,20 +62,33 @@ export class AreaComponent implements OnInit {
   }
 
   getValues(dataReturn:any){
-    var retornaDados: { name: any; data: any; }[] = [];
-    (dataReturn as any).forEach((element: any) => {
-      var x: number = +element.valorTotal;
-      retornaDados.push({name:element.nomeProduto, data:[x]});
-    });
-    return retornaDados;
+    var clientes = this.getValuesMes(dataReturn);
+    var total = [0,0,0,0,0,0,0,0,0,0,0,0];
+    for(var i=0; i<clientes.length;i++){
+        let valorTotal = clientes[i].totalVenda;
+        let mes = new Date(clientes[i].creationDate).getMonth();
+        total[mes] = total[mes] + valorTotal
+    }
+    return total;
   }
 
   getValuesMes(dataReturn:any){
-    var retornaDados: number[]=[];
+    var retornaDados: any[]=[];
     (dataReturn as any).forEach((element: any,i:any) => {
-      var x = new Date(element.dataVenda).getDay() +1;
+      var x ={'creationDate': element.dataVenda, 'totalVenda': element.valorTotal};
       retornaDados.push(x);
     });
     return retornaDados;
   }
+
+  totalizaClientes(dataReturn:any){
+    var clientes = this.getValuesMes(dataReturn);
+    var total = [0,0,0,0,0,0,0,0,0,0,0,0];
+    for(var i=0; i<clientes.length;i++){
+        let mes = new Date(clientes[i].creationDate).getMonth();
+        total[mes]++;
+    }
+    return total;
+}
+
 }
