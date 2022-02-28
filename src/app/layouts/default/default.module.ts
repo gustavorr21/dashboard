@@ -29,6 +29,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ListaProdutoComponent } from 'src/app/modules/listaProduto/lista-produto/lista-produto.component';
 import { ListaVendaComponent } from 'src/app/modules/lista-venda/lista-venda/lista-venda.component';
 import { VendasComponent } from 'src/app/modules/lista-venda/vendas/vendas.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 export const customCurrencyMaskConfig = {
   align: "left",
   allowNegative: true,
@@ -76,7 +77,9 @@ export const customCurrencyMaskConfig = {
     FormsModule,
     ReactiveFormsModule,
     MatDatepickerModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    MatCheckboxModule,
+    MatCardModule
    ],
   providers: [
     DashboardService,

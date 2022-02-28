@@ -28,5 +28,8 @@ namespace BDTeste.Models
 
     public int idFuncionario{ get; set; }
     public virtual Funcionario Funcionario { get; set; }
+
+    public List<Adicional> adicional { get; set; }
+    public virtual Adicional adicionals { get; set; }
   }
 }

@@ -6,6 +6,7 @@ import {MatSort} from '@angular/material/sort';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { concatMap, delay } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { VendasService } from 'src/app/services/vendas.service';
 
 export interface UserData {
   id: string;
@@ -29,12 +30,13 @@ export class DashboardComponent implements OnInit {
   pieChart = [] as any;
   chartOptions: any;
   constructor(private dashboardService: DashboardService,
-              private clienteService: ClienteService) {
+              private clienteService: ClienteService,
+              private vendasService:VendasService) {
 
    }
 
   ngOnInit() {
-  this.clienteService.getListClient().pipe(
+  this.vendasService.listVendas().pipe(
     concatMap(item => of (item).pipe(delay(1000)))
     ).subscribe(dataReturn => {
     // var aaaa = this.getValues(dataReturn);

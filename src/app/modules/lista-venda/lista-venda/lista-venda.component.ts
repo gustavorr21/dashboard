@@ -10,7 +10,7 @@ import { VendasService } from 'src/app/services/vendas.service';
   styleUrls: ['./lista-venda.component.scss']
 })
 export class ListaVendaComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'nome', 'email', 'telefone'];
+  displayedColumns: string[] = ['id', 'nomeProduto', 'valorTotal', 'quantidade'];
   dataSource: MatTableDataSource<any> | any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator | any;

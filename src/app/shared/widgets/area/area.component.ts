@@ -7,6 +7,7 @@ import {
   concatMap,
   delay
 } from 'rxjs/operators';
+import { VendasService } from 'src/app/services/vendas.service';
 @Component({
   selector: 'app-wigdget-area',
   templateUrl: './area.component.html',
@@ -15,14 +16,17 @@ import {
 export class AreaComponent implements OnInit {
   Highcharts: typeof Highcharts = Highcharts;
   chartOptions: any;
-  constructor(private clienteService: ClienteService,) { }
+  constructor(private clienteService: ClienteService,private vendasService: VendasService,) { }
 
   ngOnInit(){
 
-  this.clienteService.getListClient().pipe(
+  this.vendasService.listVendas().pipe(
     concatMap(item => of (item).pipe(delay(100)))
     ).subscribe(dataReturn => {
     var aaaa = this.getValues(dataReturn);
+    var vv = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dec',];
+    var bbbb = this.getValuesMes(dataReturn);
+
     this.chartOptions = {
       series: aaaa,
       title: {
@@ -34,7 +38,7 @@ export class AreaComponent implements OnInit {
       chart: {},
       xAxis: [
         {
-          categories: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dec',],
+          categories: vv,
           crosshair: true,
         },
       ],
@@ -55,12 +59,18 @@ export class AreaComponent implements OnInit {
   getValues(dataReturn:any){
     var retornaDados: { name: any; data: any; }[] = [];
     (dataReturn as any).forEach((element: any) => {
-      var y: number = +element.email;
-      var x: number = +element.senha;
-      var z: number = +element.telefone;
-      retornaDados.push({name:element.nome, data:[y,x,z]});
+      var x: number = +element.valorTotal;
+      retornaDados.push({name:element.nomeProduto, data:[x]});
     });
     return retornaDados;
   }
 
+  getValuesMes(dataReturn:any){
+    var retornaDados: number[]=[];
+    (dataReturn as any).forEach((element: any,i:any) => {
+      var x = new Date(element.dataVenda).getDay() +1;
+      retornaDados.push(x);
+    });
+    return retornaDados;
+  }
 }

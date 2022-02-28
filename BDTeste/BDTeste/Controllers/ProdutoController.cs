@@ -41,7 +41,7 @@ namespace BDTeste.Controllers
     {
       try
       {
-        var listProdutoCodigo= _context.Produto.FirstOrDefault(x=>x.codigoProduto == codigoProduto.ToString());
+        var listProdutoCodigo= _context.MercadoriaProduto.FirstOrDefault(x=>x.codigoMercadoria == codigoProduto.ToString());
         return Ok(listProdutoCodigo);
       }
       catch (Exception ex)
