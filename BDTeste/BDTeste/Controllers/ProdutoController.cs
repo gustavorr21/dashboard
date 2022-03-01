@@ -41,7 +41,21 @@ namespace BDTeste.Controllers
     {
       try
       {
-        var listProdutoCodigo= _context.MercadoriaProduto.FirstOrDefault(x=>x.codigoMercadoria == codigoProduto.ToString());
+        var listProdutoCodigo = _context.Produto.FirstOrDefault(x => x.codigoProduto == codigoProduto.ToString());
+        return Ok(listProdutoCodigo);
+      }
+      catch (Exception ex)
+      {
+        return BadRequest(ex.Message);
+      }
+    }
+
+    [HttpGet("codigoProdutoMercadoria/{codigoProdutoMercadoria}")]
+    public async Task<ActionResult> codigoProdutoMercadoria(int codigoProdutoMercadoria)
+    {
+      try
+      {
+        var listProdutoCodigo = _context.MercadoriaProduto.FirstOrDefault(x => x.codigoMercadoria== codigoProdutoMercadoria.ToString());
         return Ok(listProdutoCodigo);
       }
       catch (Exception ex)
@@ -56,8 +70,22 @@ namespace BDTeste.Controllers
     {
       try
       {
-        _context.Add(produto);
-        await _context.SaveChangesAsync();
+        var getProduto = _context.Produto.FirstOrDefault(x => x.codigoProduto == produto.codigoProduto);
+
+        if (getProduto != null)
+        {
+          getProduto.quantidade = (Convert.ToDouble(getProduto.quantidade) + Convert.ToDouble(produto.quantidade)).ToString();
+          getProduto.valorProduto = produto.valorProduto;
+          getProduto.valorTotal = produto.valorProduto * Convert.ToDouble(produto.quantidade);
+          produto.id = getProduto.id;
+          _context.Update(getProduto);
+        }
+        else
+        {
+          _context.Add(produto);
+        }
+        await SaveDespesasAsync(produto);
+
         return Ok(produto);
       }
       catch (Exception ex)
@@ -76,6 +104,23 @@ namespace BDTeste.Controllers
     [HttpDelete("{id}")]
     public void Delete(int id)
     {
+    }
+
+     async Task<ActionResult> SaveDespesasAsync(Produto produto)
+    {
+        var despesas = new Despesas();
+
+        despesas.idProduto = produto.id;
+        despesas.nomeProduto = produto.nomeProduto;
+        despesas.quantidade = produto.quantidade;
+        despesas.codigoProduto = produto.codigoProduto;
+        despesas.dataCompra = produto.dataCompra;
+        despesas.valorProduto = produto.valorProduto;
+        despesas.valorTotal = produto.valorTotal;
+
+        _context.Despesas.Add(despesas);
+        await _context.SaveChangesAsync();
+        return Ok();
     }
   }
 }

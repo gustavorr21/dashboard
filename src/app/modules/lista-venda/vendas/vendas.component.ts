@@ -44,7 +44,7 @@ export class VendasComponent implements OnInit {
   }
 
   getProduto(codigoProduto:any){
-    this.produtoService.getProdutoCodigo(codigoProduto.value).pipe().subscribe(dataReturn => {
+    this.produtoService.getMercadoriaProdutoCodigo(codigoProduto.value).pipe().subscribe(dataReturn => {
       if(dataReturn == null){
         this.toastr.warning('Codigo do produto inexistente', 'Produto não encontrado');
         return;

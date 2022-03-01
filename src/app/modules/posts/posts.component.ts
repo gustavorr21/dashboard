@@ -42,4 +42,14 @@ export class PostsComponent implements OnInit {
     this.form.patchValue({ valorTotal: (this.form.getRawValue().quantidade * this.form.getRawValue().valorProduto)});
     this.form.value.valorProduto = this.form.value.valorProduto.toString();
   }
+
+  getProduto(codigoProduto:any){
+    this.produtoService.getProdutoCodigo(codigoProduto.value).pipe().subscribe(dataReturn => {
+      if(dataReturn == null){
+        this.toastr.warning('Codigo do produto inexistente', 'Produto não encontrado');
+        return;
+      }
+      this.form.patchValue({ nomeProduto: dataReturn.nomeProduto, valorProduto: dataReturn.valorProduto });
+    })
+  }
 }

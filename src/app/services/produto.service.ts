@@ -15,6 +15,10 @@ export class ProdutoService {
     return this.http.get(this.myAppUrl);
   }
 
+  getMercadoriaProdutoCodigo(codigoProdutoMercadoria: any):Observable<any> {
+    return this.http.get(`${this.myAppUrl+'codigoProdutoMercadoria/'}${codigoProdutoMercadoria}`);
+  }
+
   getProdutoCodigo(codigoProduto: any):Observable<any> {
     return this.http.get(`${this.myAppUrl}${codigoProduto}`);
   }

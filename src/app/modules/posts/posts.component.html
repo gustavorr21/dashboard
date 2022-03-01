@@ -9,7 +9,7 @@
         <div class="d-flex flex-wrap row">
           <mat-form-field  appearance="fill">
             <mat-label>Codigo Produto</mat-label>
-            <input matInput formControlName="codigoProduto" placeholder="Ex: 123" >
+            <input matInput formControlName="codigoProduto" placeholder="Ex: 123"  (change)="getProduto($event.target)">
           </mat-form-field>
 
           <mat-form-field appearance="fill" style="width: 500px;">
