@@ -17,6 +17,7 @@ import { HighchartsChartModule } from 'highcharts-angular';
 import { CardComponent } from './widgets/card/card.component';
 import { PieComponent } from './widgets/pie/pie.component';
 import { RelatorioVendasComponent } from '../modules/lista-venda/relatorio-vendas/relatorio-vendas.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import { RelatorioVendasComponent } from '../modules/lista-venda/relatorio-venda
     AreaComponent,
     CardComponent,
     PieComponent,
-    RelatorioVendasComponent
+    RelatorioVendasComponent,
   ],
   imports: [
     CommonModule,
@@ -40,6 +41,7 @@ import { RelatorioVendasComponent } from '../modules/lista-venda/relatorio-venda
     MatListModule,
     RouterModule,
     HighchartsChartModule,
+    MatDialogModule
   ],
   exports: [
     HeaderComponent,

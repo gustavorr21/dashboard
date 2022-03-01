@@ -1,0 +1,23 @@
+
+<div mat-dialog-content>
+  <h2 mat-dialog-title>{{title}}</h2>
+  <form [formGroup]="form">
+    <mat-form-field class="mt-1">
+      <mat-label>Nome</mat-label>
+      <input matInput formControlName="nomeProduto" placeholder="Nome">
+    </mat-form-field>
+
+    <mat-form-field class="mt-1">
+      <mat-label>Quantidade</mat-label>
+      <input matInput formControlName="quantidade" placeholder="Quantidade">
+    </mat-form-field>
+
+  </form>
+</div>
+
+<div mat-dialog-actions>
+  <div class="float-right">
+    <!-- <button mat-raised-button (click)="dialogRef.close()">Cancelar</button> -->
+    <button mat-raised-button (click)="submit()" color="primary" cdkFocusInitial>Salvar</button>
+  </div>
+</div>

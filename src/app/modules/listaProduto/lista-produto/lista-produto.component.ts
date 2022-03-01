@@ -3,6 +3,10 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ProdutoService } from 'src/app/services/produto.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogEdicaoProdutoComponent } from '../dialog-edicao-produto/dialog-edicao-produto.component';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-lista-produto',
@@ -10,13 +14,13 @@ import { ProdutoService } from 'src/app/services/produto.service';
   styleUrls: ['./lista-produto.component.scss']
 })
 export class ListaProdutoComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'nome', 'quantidade', 'valorProduto'];
+  displayedColumns: string[] = ['id', 'nome', 'quantidade', 'valorProduto','actions'];
   dataSource: MatTableDataSource<any> | any;
-
+  dialogRef: any;
   @ViewChild(MatPaginator) paginator: MatPaginator | any;
   @ViewChild(MatSort) sort: MatSort | any;
-
-  constructor(private produtoService:ProdutoService) { }
+  private unsub$ = new Subject();
+  constructor(private produtoService:ProdutoService, private dialog: MatDialog,) { }
 
   ngOnInit(): void {
     this.produtoService.listProduto().pipe().subscribe(dataReturn => {
@@ -33,4 +37,28 @@ export class ListaProdutoComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
+
+
+  openInclusaoParametro(produto: any) {
+    this.dialogRef = this.dialog
+      .open(DialogEdicaoProdutoComponent, {
+        width: '600px',
+        data: {
+          parametro: null,
+          title: 'Editar Produto',
+          produto: produto
+        }
+      });
+
+    this.dialogRef
+      .afterClosed()
+      .pipe(
+        takeUntil(this.unsub$)
+      )
+      .subscribe(() => {
+
+      });
+  }
+
+
 }
